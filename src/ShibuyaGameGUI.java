@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 import javax.swing.*;
 
 public class ShibuyaGameGUI extends JFrame implements ActionListener {
@@ -127,20 +126,20 @@ public class ShibuyaGameGUI extends JFrame implements ActionListener {
             manaButton.setEnabled(false);
         }
     }
-
     private void setCreatureImage(String enemyName) {
         try {
             if (enemyName.equals("Fly Head")) {
-                creatureImageLabel.setIcon(new ImageIcon(new URL("https://i.imgur.com/1XqxOlL.png")));
+                creatureImageLabel.setIcon(new ImageIcon("images/Flyhead.png"));
             } else if (enemyName.equals("Roppongi Curse")) {
-                creatureImageLabel.setIcon(new ImageIcon(new URL("https://i.imgur.com/8r3vxAh.png")));
+                creatureImageLabel.setIcon(new ImageIcon("images/Roppongi.png"));
             } else if (enemyName.equals("Eso Spirit")) {
-                creatureImageLabel.setIcon(new ImageIcon(new URL("https://i.imgur.com/E8EkfP5.png")));
+                creatureImageLabel.setIcon(new ImageIcon("images/Esospirit.png"));
             }
         } catch (Exception e) {
             creatureImageLabel.setText("Image Load Failed");
         }
     }
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {
