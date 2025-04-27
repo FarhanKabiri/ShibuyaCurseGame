@@ -26,7 +26,7 @@ public class ShibuyaGameGUI extends JFrame implements ActionListener {
         JPanel rightPanel = new JPanel(new BorderLayout());
         JPanel bottomPanel = new JPanel();
 
-        // Left side: story + stats
+        // Left side: story + player stats
         JPanel topStatsPanel = new JPanel(new GridLayout(2, 2));
         playerHealthBar = new JProgressBar(0, 100);
         playerHealthBar.setForeground(Color.RED);
@@ -63,11 +63,17 @@ public class ShibuyaGameGUI extends JFrame implements ActionListener {
         bottomPanel.add(spellButton);
         bottomPanel.add(manaButton);
 
-        // Right side: enemy image
+        // Right side: enemy image + enemy health
         creatureImageLabel = new JLabel();
         creatureImageLabel.setHorizontalAlignment(JLabel.CENTER);
         creatureImageLabel.setVerticalAlignment(JLabel.CENTER);
+
+        enemyHealthBar = new JProgressBar();
+        enemyHealthBar.setForeground(Color.RED);
+        enemyHealthBar.setStringPainted(true);
+
         rightPanel.add(creatureImageLabel, BorderLayout.CENTER);
+        rightPanel.add(enemyHealthBar, BorderLayout.SOUTH);
 
         // Add panels to main frame
         add(leftPanel, BorderLayout.CENTER);
@@ -94,14 +100,15 @@ public class ShibuyaGameGUI extends JFrame implements ActionListener {
         playerManaBar.setMaximum(gojo.maxMana);
         playerManaBar.setValue(gojo.mana);
 
-        enemyHealthBar = new JProgressBar(0, enemy.maxHealth);
+        enemyHealthBar.setMaximum(enemy.maxHealth);
         enemyHealthBar.setValue(enemy.health);
     }
 
     private void printText(String text) {
         storyArea.append("\n\n" + text);
+        storyArea.setCaretPosition(storyArea.getDocument().getLength());
     }
-
+    
     private void nextQuest() {
         if (questStage == 1) {
             questStage++;
@@ -126,20 +133,26 @@ public class ShibuyaGameGUI extends JFrame implements ActionListener {
             manaButton.setEnabled(false);
         }
     }
+
     private void setCreatureImage(String enemyName) {
         try {
+            ImageIcon icon = null;
             if (enemyName.equals("Fly Head")) {
-                creatureImageLabel.setIcon(new ImageIcon("images/Flyhead.png"));
+                icon = new ImageIcon("images/flyhead.png");
             } else if (enemyName.equals("Roppongi Curse")) {
-                creatureImageLabel.setIcon(new ImageIcon("images/Roppongi.png"));
+                icon = new ImageIcon("images/roppongi.png");
             } else if (enemyName.equals("Eso Spirit")) {
-                creatureImageLabel.setIcon(new ImageIcon("images/Esospirit.png"));
+                icon = new ImageIcon("images/esospirit.png");
+            }
+
+            if (icon != null) {
+                Image img = icon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+                creatureImageLabel.setIcon(new ImageIcon(img));
             }
         } catch (Exception e) {
             creatureImageLabel.setText("Image Load Failed");
         }
     }
-    
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -175,6 +188,7 @@ public class ShibuyaGameGUI extends JFrame implements ActionListener {
         }
 
         updateBars();
+        enemyHealthBar.setValue(Math.max(enemy.health, 0)); // Update enemy health bar live
     }
 
     public static void main(String[] args) {
