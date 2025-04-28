@@ -189,15 +189,15 @@ public class ShibuyaGameGUI extends JFrame implements ActionListener {
         try {
             ImageIcon icon = null;
             if (enemyName.equals("Fly Head")) {
-                icon = new ImageIcon("src/images/flyhead.png");
+                icon = new ImageIcon("images/flyhead.png");
             } else if (enemyName.equals("Roppongi Curse")) {
-                icon = new ImageIcon("src/images/roppongi.png");
+                icon = new ImageIcon("images/roppongi.png");
             } else if (enemyName.equals("Eso Spirit")) {
-                icon = new ImageIcon("src/images/esospirit.png");
+                icon = new ImageIcon("images/esospirit.png");
             } else if (enemyName.equals("Sukuna")) {
-                icon = new ImageIcon("src/images/sukuna.png");
+                icon = new ImageIcon("images/sukuna.png");
             } else {
-                icon = new ImageIcon("src/images/sukuna.png");
+                icon = new ImageIcon("images/sukuna.png");
             }
     
             if (icon != null) {
