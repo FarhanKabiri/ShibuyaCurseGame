@@ -137,23 +137,20 @@ public class ShibuyaGameGUI extends JFrame implements ActionListener {
         enemyHealthBar.setString(enemy.health + "/" + enemy.maxHealth + " HP");
     }
 
-    private void animatedText(String text) {
+    private void animatedText(String newText) {
         if (typingTimer != null && typingTimer.isRunning()) {
             typingTimer.stop();
         }
-        fullText = storyArea.getText() + "\n\n" + text;
-        charIndex = 0;
-
-        typingTimer = new Timer(15, e -> {
-            storyArea.setText(fullText.substring(0, charIndex));
+    
+        Timer delayTimer = new Timer(25, null);
+        delayTimer.setRepeats(false);
+        delayTimer.addActionListener(e -> {
+            storyArea.append(newText + "\n\n");
             storyArea.setCaretPosition(storyArea.getDocument().getLength());
-            charIndex++;
-            if (charIndex > fullText.length()) {
-                typingTimer.stop();
-            }
         });
-        typingTimer.start();
+        delayTimer.start();
     }
+    
 
     private void nextQuest() {
         if (questStage == 1) {
