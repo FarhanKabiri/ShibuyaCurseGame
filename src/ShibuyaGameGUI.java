@@ -172,7 +172,15 @@ public class ShibuyaGameGUI extends JFrame implements ActionListener {
             setCreatureImage("Eso Spirit");
             animatedText("A terrible force appears: Eso Spirit!");
             updateBars();
-        } else {
+        } else if (questStage == 3) {
+            questStage++;
+            animatedText("You defeated Eso Spirit!\n\nBut an ominous presence emerges...");
+            gojo.unlockSorcery("Domain Expansion");
+            enemy = new CursedFighter("Sukuna", 100, 50, 100);
+            setCreatureImage("Sukuna");
+            animatedText("The King of Curses, Sukuna, has appeared! Prepare for the ultimate battle!");
+            updateBars();
+        }else {
             animatedText("Congratulations! You defeated all curses and saved Shibuya!");
             attackButton.setEnabled(false);
             spellButton.setEnabled(false);
@@ -184,19 +192,24 @@ public class ShibuyaGameGUI extends JFrame implements ActionListener {
         try {
             ImageIcon icon = null;
             if (enemyName.equals("Fly Head")) {
-                icon = new ImageIcon("images/flyhead.png");
+                icon = new ImageIcon("src/images/flyhead.png");
             } else if (enemyName.equals("Roppongi Curse")) {
-                icon = new ImageIcon("images/roppongi.png");
+                icon = new ImageIcon("src/images/roppongi.png");
             } else if (enemyName.equals("Eso Spirit")) {
-                icon = new ImageIcon("images/esospirit.png");
+                icon = new ImageIcon("src/images/esospirit.png");
+            } else if (enemyName.equals("Sukuna")) {
+                icon = new ImageIcon("src/images/sukuna.png");
+            } else {
+                icon = new ImageIcon("src/images/sukuna.png");
             }
-
+    
             if (icon != null) {
                 Image img = icon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
                 creatureImageLabel.setIcon(new ImageIcon(img));
             }
         } catch (Exception e) {
             creatureImageLabel.setText("Image Load Failed");
+            e.printStackTrace(); // Debugging
         }
     }
 
