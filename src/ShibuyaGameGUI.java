@@ -155,7 +155,7 @@ public class ShibuyaGameGUI extends JFrame implements ActionListener {
     private void nextQuest() {
         if (questStage == 1) {
             questStage++;
-            animatedText("You defeated Fly Head!\n\nOpening a chest...");
+            animatedText("You defeated Fly Head!\n Acquired Healing sorcery!\n");
             gojo.unlockSorcery("Healing");
             enemy = new CursedFighter("Roppongi Curse", 50, 20, 60);
             setCreatureImage("Roppongi Curse");
@@ -163,7 +163,7 @@ public class ShibuyaGameGUI extends JFrame implements ActionListener {
             updateBars();
         } else if (questStage == 2) {
             questStage++;
-            animatedText("You defeated Roppongi Curse!\n\nApproaching the final battle...");
+            animatedText("You defeated Roppongi Curse!\nAcquired Necromancy sorcery!\n");
             gojo.unlockSorcery("Necromancy");
             enemy = new CursedFighter("Eso Spirit", 60, 35, 80);
             setCreatureImage("Eso Spirit");
@@ -171,9 +171,9 @@ public class ShibuyaGameGUI extends JFrame implements ActionListener {
             updateBars();
         } else if (questStage == 3) {
             questStage++;
-            animatedText("You defeated Eso Spirit!\n\nBut an ominous presence emerges...");
+            animatedText("You defeated Eso Spirit!\nAcquired Domain Expansion sorcery!\n");
             gojo.unlockSorcery("Domain Expansion");
-            enemy = new CursedFighter("Sukuna", 100, 50, 100);
+            enemy = new CursedFighter("Sukuna", 100, 40, 100);
             setCreatureImage("Sukuna");
             animatedText("The King of Curses, Sukuna, has appeared! Prepare for the ultimate battle!");
             updateBars();

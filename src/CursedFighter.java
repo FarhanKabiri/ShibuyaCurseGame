@@ -27,27 +27,35 @@ public class CursedFighter extends CursedBeing implements BattleActions {
         target.takeDamage(damage);
     }
 
+    public void unlockSorcery(String sorcery) {
+        if (sorcery.equals("Healing")) {
+            spells.put(4, "Regeneration Wave (20 Mana) - Restores massive health");
+        } else if (sorcery.equals("Necromancy")) {
+            spells.put(5, "Soul Decay (20 Mana) - Deals immense damage");
+        } else if (sorcery.equals("Domain Expansion")) {
+            spells.put(6, "Domain Expansion (30 Mana) - Unleashes devastating power");
+        }
+        sorceryType = sorcery;
+    }
+    
     @Override
     public void castSpell(CursedFighter target) {
         if (sorceryType.equals("Healing")) {
             heal(20);
         } else if (sorceryType.equals("Necromancy")) {
             target.takeDamage(30);
+        } else if (sorceryType.equals("Domain Expansion")) {
+            if (mana >= 25) {
+                target.takeDamage(50); // Massive damage
+                System.out.println(name + " used Domain Expansion! It's devastating!");
+            } else {
+                System.out.println(name + " doesn't have enough mana for Domain Expansion!");
+            }
         } else {
-            target.takeDamage(15);
+            target.takeDamage(15); // Default spell damage
         }
-        mana = Math.max(mana - 10, 0);
+        mana = Math.max(mana - 10, 0); // Reduce mana for all spells
     }
-
-    public void unlockSorcery(String sorcery) {
-        if (sorcery.equals("Healing")) {
-            spells.put(4, "Regeneration Wave (20 Mana) - Restores massive health");
-        } else if (sorcery.equals("Necromancy")) {
-            spells.put(5, "Soul Decay (20 Mana) - Deals immense damage");
-        }
-        sorceryType = sorcery;
-    }
-
     public void gainMana(int amount) {
         mana = Math.min(mana + amount, maxMana);
     }
